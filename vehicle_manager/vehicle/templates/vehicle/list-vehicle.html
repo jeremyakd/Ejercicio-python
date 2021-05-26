@@ -1,0 +1,57 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <form class="d-flex text-center">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" oninput="search(this.value);">
+        </form>
+    </div>
+</nav>
+<div class="row" id="con">
+    {% for o in object_list %}
+        <div class="col-md-4 mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Tipo de Vehiculo: {{o}}</h5>
+                    <hr>
+                    {% for k, v  in o.to_dict.items %}
+                        {% if k == '_state' %}
+                        {% elif k == 'id' %}
+                        {% elif k == 'created' %}
+                        {% elif k == 'updated' %}
+                        {% elif k == 'ruedas' %}
+                            <p>{{ k.capitalize }} : <span class="ruedas">{{ v }}</span></p>
+                        {% else %}
+                            <p>{{ k.capitalize }} : <span>{{ v }}</span></p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}
+{% block javascript %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+    function search(ruedas) {
+        
+        var container = $("#con").children();
+        for (let i = 0; i < container.length; i++) {
+            var element = container[i];
+            element.hidden = false;
+            var wheels = element.firstElementChild.firstElementChild.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.innerHTML;
+            if (ruedas != wheels && ruedas != "") {
+                element.hidden = true;
+            }
+        }
+    }
+
+</script>
+
+{% endblock javascript %}

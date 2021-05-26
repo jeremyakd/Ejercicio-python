@@ -1,0 +1,54 @@
+{% extends 'core/base.html' %}
+{% block title %}HOME{% endblock title %}
+{% block content %}
+
+<div class="container">
+    <div style="height: 70px;">
+        {% if 'ok' in request.GET %}
+        <div class="alert alert-success">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            Vehiculo creado con éxito.
+        </div>
+        {% elif 'del' in request.GET %}
+        <div class="alert alert-success">
+            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+            <strong> Vehiculo eliminado con éxito.</strong>
+        </div>
+        {% elif 'up' in request.GET %}
+        <div class="alert alert-success">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <strong> Vehiculo modificado con éxito.</strong>
+        </div>
+        {% endif %} 
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a href="{% url 'create-coche' %}" class="waves-effect waves-light btn"><i class="fas fa-car-side fa-3x"></i><h2 class="d-inline ml-5"> CREAR COCHE </h2></a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{% url 'create-camioneta' %}" class="waves-effect waves-light btn"><i class="fas fa-truck fa-3x"></i><h2 class="d-inline">CREAR CAMIONETA</h2></a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{% url 'create-bicicleta' %}" class="waves-effect waves-light btn"><i class="fas fa-bicycle fa-3x"></i><h2 class="d-inline">CREAR BICICLETA</h2></a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{% url 'create-motocicleta' %}" class="waves-effect waves-light btn"><i class="fas fa-motorcycle fa-3x"></i><h2 class="d-inline">CREAR MOTOCICLETA</h2></a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+    <style>
+        h2{
+            margin-left: 30px;
+        }
+        .btn-close{
+            float: right;
+        }
+    </style>
+{% endblock %}
