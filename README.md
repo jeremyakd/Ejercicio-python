@@ -57,3 +57,34 @@ Es el ejercicio de python con Django.
         pip install -r requirementrs.txt
         python manage.py runserver
 
+<hr>
+
+## Web services
+
+### Manejo de performance en alta demanda
+
+### Solución vía infraestructura
+- Se ha de diagnosticar el punto donde la performance comienza a descender y que servicio es el primero en ser afectado.
+Evaluando la herramienta de orquestación (ya sea por VM o containers) se configurará un trigger para balancear la carga, escalando (idealmente) de manera horizontal.
+### Solución vía funcionalidad
+- En caso de no poder resolver por infraestructura y asumiendo que el código es performante evaluaría poder administrar la respuesta al cliente de manera desatendida tomamos el ejemplo de que la confirmación de la compra se ve demorada en la integración de los postnet virtuales, cuando hay llamadas concurrentes
+    - Al finalizar la compra el usuario no sabe si ha sido exitosa, de manera tal que le mostraremos un mensaje para confirmarle que la solicitud de compra ha sido recibida y que recibirá el resultado final dentro de las pŕoximos minutos
+
+
+### Ver reportes de ventas en tiempo real
+- Emplearía un stack de tecnologías ETL, que están pensadas para reportes en tiempo real como Elasticsearch, donde podemos implementar lo siguiente:
+
+- Con Filebeat hacemos la extracción de los logs de los servicios por ejemplo un proceso de funel:
+    - Usuario arriba en la plataforma
+    - Selecciona el espectáculo de interés
+    - Solicitud recibida
+    - Solicitud procesada con estado (confirmado/ rechazado)
+    - Usuario notificado
+- Con Logtash realizamos la transformación de los logs a, por ejemplo json, para normalizar los documentos para poder explotarlos en el dashboard de Kibana
+- Con Kibana haremos la explotación de los datos usando, por ejemplo, el gráfico de barras para las ventas realizadas (eje vertical) durante el periodo que seleccione el usuario (horas, días, meses).
+
+### Reporte mensual de ventas
+
+Utilizando la solución del punto anterior es necesario observar que:
+Se duplica la información
+Ya no se bloquearía la main DB del sistema al momento de consultar el reporte mensual.
